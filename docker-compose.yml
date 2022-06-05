@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  consul-server:
+    container_name: consul-server
+    hostname: consul-server
+    build:
+      context: .\consul-server
+      dockerfile: Dockerfile
+    ports:
+      - 8500:8500
+      - 8600:8600
+    networks:
+      - consul-demo-network
+
+  dashboard:
+    container_name: dashboard
+    hostname: dashboard
+    build:
+      context: .\dashboard-service
+      dockerfile: Dockerfile
+    ports: 
+      - 9002:9002
+    environment:
+      PORT: 9002
+      #COUNTING_SERVICE_URL: 'http://counting-1:9001'
+    networks:
+      - consul-demo-network
+    depends_on:
+      - consul-server
+      - counting-1
+
+  counting-1:
+    container_name: counting-service-1
+    hostname: counting-1
+    build:
+      context: .\counting-service
+      dockerfile: Dockerfile
+    ports: 
+      - 9003:9003
+    environment:
+      PORT: 9003
+    networks:
+      - consul-demo-network
+    depends_on:
+      - consul-server
+
+networks:
+  consul-demo-network:
+    driver: bridge
