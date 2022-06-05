@@ -7,4 +7,4 @@ RUN export FUNC_E_PLATFORM=linux/amd64
 RUN func-e use 1.18.3
 RUN cp ~/.func-e/versions/1.18.3/bin/envoy /usr/local/bin/
 
-CMD ["consul", "agent", "-dev", "-ui", "-node=server", "-bootstrap-expect=1", "-client=0.0.0.0", "-data-dir=/tmp/consul", "-config-dir=/consul/config"]
+CMD ["consul", "agent", "-server", "-ui", "-node=server", "-bootstrap-expect=1", "-client=0.0.0.0", "-data-dir=/tmp/consul", "-config-dir=/consul/config"]
