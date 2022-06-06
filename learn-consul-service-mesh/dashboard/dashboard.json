@@ -1,6 +1,6 @@
 {
-  "node_name": "consul-client2",
-  "datacenter": "dc1",
+  "node_name": "consul-dashboard",
+  "datacenter": "zsch",
   "data_dir": "/consul/data",
   "log_level":"INFO",
   "retry_join":[

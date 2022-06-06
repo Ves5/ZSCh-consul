@@ -7,7 +7,7 @@ services:
     container_name: consul-server
     restart: always
     volumes:
-     - ./server.json:/consul/config/server.json:ro
+     - ./server/server.json:/consul/config/server.json:ro
     networks:
       - consul
     ports:
@@ -16,34 +16,63 @@ services:
       - "8600:8600/udp"
     command: "agent"
 
-  consul-client1:
-    image: hashicorp/consul:1.9.6
-    container_name: consul-client1
+  consul-dashboard:
+    #image: hashicorp/consul:1.9.6
+    build:
+      context: .
+      dockerfile: ./dashboard/dashboard.Dockerfile
+    container_name: consul-dashboard
+    hostname: dashboard
     restart: always
     volumes:
-     - ./client1.json:/consul/config/client1.json:ro
+     - ./dashboard/dashboard.json:/consul/config/dashboard.json:ro
      - ./intention-config-entry.json:/intention-config-entry.json
-    networks:
-      - consul
-    ports:
-      - "9003:9003"
-    environment:
-      - PORT=9003
-    command: "agent"
-
-  consul-client2:
-    image: hashicorp/consul:1.9.6
-    container_name: consul-client2
-    restart: always
-    volumes:
-     - ./client2.json:/consul/config/client2.json:ro
+     - ./dashboard/go:/app
     networks:
       - consul
     ports:
       - "9002:9002"
     environment:
-      - PORT=9002
+      #- PORT=9002
       - COUNTING_SERVICE_URL=http://localhost:5000
+    command: "agent"
+
+  consul-counting1:
+    #image: hashicorp/consul:1.9.6
+    build:
+      context: .
+      dockerfile: ./counting1/counting1.Dockerfile
+    container_name: consul-counting1
+    hostname: counting1
+    restart: always
+    volumes:
+     - ./counting1/counting1.json:/consul/config/counting1.json:ro
+     - ./counting1/go:/app
+    networks:
+      - consul
+    ports:
+      - "9003:9003"
+    #environment:
+      #- PORT=9003
+    command: "agent"
+
+  consul-counting2:
+    #image: hashicorp/consul:1.9.6
+    build:
+      context: .
+      dockerfile: ./counting2/counting2.Dockerfile
+    container_name: consul-counting2
+    hostname: counting2
+    restart: always
+    volumes:
+     - ./counting2/counting2.json:/consul/config/counting2.json:ro
+     - ./counting2/go:/app
+    networks:
+      - consul
+    ports:
+      - "9004:9004"
+    #environment:
+      #- PORT=9004
     command: "agent"
     
 networks:

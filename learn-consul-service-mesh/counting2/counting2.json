@@ -1,6 +1,6 @@
 {
-  "node_name": "consul-client1",
-  "datacenter": "dc1",
+  "node_name": "consul-counting2",
+  "datacenter": "zsch",
   "data_dir": "/consul/data",
   "log_level":"INFO",
   "retry_join":[
@@ -8,13 +8,13 @@
    ],
   "service": {
     "name": "counting",
-    "port": 9003, 
+    "port": 9004, 
     "connect": {
       "sidecar_service": {}
     },
     "check": {
-      "id": "counting-check",
-      "http": "http://localhost:9003/health",
+      "id": "counting2-proxy-check",
+      "http": "http://localhost:9004/health",
       "method": "GET",
       "interval": "1s",
       "timeout": "1s"

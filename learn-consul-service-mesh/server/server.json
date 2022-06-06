@@ -5,7 +5,7 @@
     "ui_config": {
         "enabled" : true
     },
-    "datacenter": "dc1",
+    "datacenter": "zsch",
     "data_dir": "/consul/data",
     "log_level":"INFO",
     "addresses": {
