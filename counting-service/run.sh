@@ -10,7 +10,7 @@ go run main.go &
 
 # run consul sidecar proxy
 #consul connect proxy -sidecar-for counting-1 &
-consul connect envoy -sidecar-for counting-1 -admin-bind localhost:19001 &
+consul connect envoy -sidecar-for counting-1 &
 
 # Wait for any process to exit
 wait -n
