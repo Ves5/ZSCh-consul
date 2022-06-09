@@ -13,6 +13,7 @@
       "sidecar_service": {}
     },
     "check": {
+      "id": "counting2-check",
       "http": "http://localhost:9004/health",
       "method": "GET",
       "interval": "1s",
